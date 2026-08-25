@@ -73,6 +73,8 @@ nixl_ep_sources = [
 nixl_ep_inc_dirs = [
     nixl_inc_dirs,
     nixl_gpu_inc_dirs,
+    # for common/configuration.h, which reads the NIXL_EP_* variables
+    utils_inc_dirs,
     include_directories('csrc'),
     include_directories('csrc/kernels'),
     torch_inc_dirs,
@@ -160,6 +162,8 @@ nixl_ep_ext = py.extension_module(nixl_ep_ext_name,
         pybind_dep,
         cuda_dep,
         torch_dep,
+        # header-only, pulled in by common/configuration.h
+        tomlplusplus_dep,
     ] + ucx_build_deps,
     include_directories: nixl_ep_inc_dirs,
     cpp_args: nixl_ep_cpp_args,
